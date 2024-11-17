@@ -16,6 +16,11 @@ const ContextProvider = (props) => {
 
     const typingSpeed = 50; // Adjust the typing speed (in ms)
 
+    const newChat = () => {
+        setLoading(false)
+        setShowResult(false)
+    }
+
     // Function to handle the sending of the prompt
     const onSent = async (prompt) => {
         setResultData("");
@@ -108,7 +113,8 @@ const ContextProvider = (props) => {
         resultData,
         input,
         setInput,
-        typedText, // Expose the typedText to be rendered in the component
+        typedText,
+        newChat// Expose the typedText to be rendered in the component
     };
 
     return (
