@@ -1,11 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './Main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/Context';
 
 const Main = () => {
     const { onSent, recentPrompt, showResult, loading, resultData, setInput, input, setRecentPrompt } = useContext(Context);
-    
+    const [typedText, setTypedText] = useState(""); // State to hold the typed effect text
+    const typingSpeed = 30; // Speed of typing effect in milliseconds (faster)
+
+    // Function to simulate typing effect
+    const typeWriterEffect = (text) => {
+        let i = 0;
+        let tempText = "";
+        const textLength = text.length;
+
+        // Set an interval to simulate typing effect
+        const interval = setInterval(() => {
+            tempText += text.charAt(i); // Add the next character to the tempText
+            setTypedText(tempText); // Update the state with the typed text
+
+            // Stop the interval when all characters are typed
+            if (i >= textLength - 1) {
+                clearInterval(interval);
+            }
+
+            i++;
+        }, typingSpeed); // Adjust the speed here
+    };
+
+    useEffect(() => {
+        if (resultData) {
+            setTypedText(""); // Clear previous typed text
+            typeWriterEffect(resultData); // Start typing effect on new result
+        }
+    }, [resultData]); // Trigger typing effect when resultData changes
+
     return (
         <div className="main">
             <div className="nav">
@@ -51,15 +80,13 @@ const Main = () => {
                         <div className="result-data">
                             <img src={assets.gemini_icon} alt="Gemini Icon" />
                             {loading
-                                ? <div className='loader'>  
+                                ? <div className="loader">
                                     <hr />
                                     <hr />
                                     <hr />
-                                  </div>
-                                : <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                                </div>
+                                : <p dangerouslySetInnerHTML={{ __html: typedText }}></p>  // Render typedText with HTML formatting
                             }
-                               
-                            
                         </div>
                     </div>
                 }
@@ -91,10 +118,9 @@ const Main = () => {
                         so double-check its responses. Your privacy and Gemini Apps
                     </p>
                 </div>
-            </div>  
+            </div>
         </div>
     );
 }
 
 export default Main;
-
