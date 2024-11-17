@@ -6,7 +6,7 @@ import { Context } from '../../context/Context';
 const Main = () => {
     const { onSent, recentPrompt, showResult, loading, resultData, setInput, input, setRecentPrompt } = useContext(Context);
     const [typedText, setTypedText] = useState(""); // State to hold the typed effect text
-    const typingSpeed = 30; // Speed of typing effect in milliseconds (faster)
+    const typingSpeed = 15; // Speed of typing effect in milliseconds (faster)
 
     // Function to simulate typing effect
     const typeWriterEffect = (text) => {

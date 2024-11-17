@@ -17,14 +17,22 @@ const ContextProvider = (props) => {
     const typingSpeed = 50; // Adjust the typing speed (in ms)
 
     // Function to handle the sending of the prompt
-    const onSent = async () => {
+    const onSent = async (prompt) => {
         setResultData("");
         setTypedText(""); // Clear any previous typed text
         setLoading(true);
         setShowResult(true);
-        setRecentPrompt(input);
-
-        const response = await run(input); // Get response from your API (run function)
+        let response;
+        if (prompt != undefined) {
+            response = await run(prompt)
+            setRecentPrompt(prompt)
+        }
+        else {
+            setPrevPrompts(prev => [...prev, input])
+            setRecentPrompt(input)
+            response= await run(input)
+        }
+       
 
         let newResponse = ""; // Initialize the newResponse string
         let inBold = false; // Track if we are in bold mode
