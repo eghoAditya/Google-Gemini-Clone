@@ -102,14 +102,14 @@ const Main = () => {
                         <div>
                             <img src={assets.gallery_icon} alt="Gallery Icon" />
                             <img src={assets.mic_icon} alt="Mic Icon" />
-                            <img
+                             {input? <img
                                 onClick={() => {
                                     setRecentPrompt(input);  // Set recentPrompt before sending
                                     onSent();  // Trigger onSent to handle prompt sending
                                 }}
                                 src={assets.send_icon}
                                 alt="Send Icon"
-                            />
+                            />:null}   
                         </div>
                     </div>
 
