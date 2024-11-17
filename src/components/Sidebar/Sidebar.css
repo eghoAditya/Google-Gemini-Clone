@@ -35,6 +35,7 @@
   .sidebar .recent {
     display: flex;
     flex-direction: column;
+    animation: fadein 1.5s ;
   }
   
   .sidebar .recent-title {
@@ -101,5 +102,11 @@
   /* Optional: Style for the icons when hovered (hover effect) */
   .icon-container:hover img {
     opacity: 0.8; /* You can add hover effect on icon too */
+  }
+
+  @media (max-width:600px){
+    .sidebar{
+      display: none;
+    }
   }
   
